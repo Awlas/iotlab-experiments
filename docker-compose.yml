@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  openv-server:
+    image: awlas/iotlab-experiments 
+    container_name: IOTLab_OpenV_Server_Exp
+    privileged: true
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - SUB_EXP_DURATION=${SUB_EXP_DURATION:-1}
+      - NB_EXP=${NB_EXP:-1}
+      - SAFE_MARGIN_DURATION=${SAFE_MARGIN_DURATION:-2}
+      - EXP_RESUME=${EXP_RESUME:-True}
+      - EXP_RESUME_VERIF=${EXP_RESUME_VERIF:-False}
+      - EXP_NAME=${EXP_NAME:-RANDOM}
+      - SITE=${SITE:-grenoble}
+      - NB_MOTES=${NB_MOTES:-2}
+      - MAX_ID=${MAX_ID:-289}
+      - MIN_ID=${MIN_ID:-70}
+      - MAX_SPACE_ID=${MAX_SPACE_ID:-9}
+      - SIMULATION=${SIMULATION:-False}
+      - COMPIL=${COMPIL:-True}
+    ports:
+      - 9000:9000
+    networks:
+      - openv-network
+    stdin_open: true
+    tty: true
+    command: python3 run_experiments.py
+
+  openv-client:
+    image: awlas/iotlab-experiments
+    container_name: IOTLab_OpenV_Client_Exp
+    privileged: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - openv-network
+    ports:
+      - 8080:8080
+    stdin_open: true
+    tty: true
+    command: openv-client --server IOTLab_OpenV_Server_Exp --port 9000 view web --web-host IOTLab_OpenV_Client_Exp --web-port 8080 --rpc-host IOTLab_OpenV_Server_Exp --rpc-port 9000
+    depends_on: 
+      - openv-server
+    
+networks:
+  openv-network:
