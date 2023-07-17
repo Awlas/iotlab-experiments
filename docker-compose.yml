@@ -9,19 +9,19 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - SUB_EXP_DURATION=${SUB_EXP_DURATION:-1}
-      - NB_EXP=${NB_EXP:-1}
-      - SAFE_MARGIN_DURATION=${SAFE_MARGIN_DURATION:-2}
-      - EXP_RESUME=${EXP_RESUME:-True}
-      - EXP_RESUME_VERIF=${EXP_RESUME_VERIF:-False}
+      - SUB_EXP_DURATION=${SUB_EXP_DURATION:-60}
+      - SAFE_MARGIN_DURATION=${SAFE_MARGIN_DURATION:-30}
+      - NB_EXP=${NB_EXP:-5}
       - EXP_NAME=${EXP_NAME:-RANDOM}
       - SITE=${SITE:-grenoble}
-      - NB_MOTES=${NB_MOTES:-2}
+      - NB_MOTES=${NB_MOTES:-12}
       - MAX_ID=${MAX_ID:-289}
       - MIN_ID=${MIN_ID:-70}
       - MAX_SPACE_ID=${MAX_SPACE_ID:-9}
       - SIMULATION=${SIMULATION:-False}
       - COMPIL=${COMPIL:-True}
+      - EXP_RESUME=${EXP_RESUME:-True}
+      - EXP_RESUME_VERIF=${EXP_RESUME_VERIF:-False}
     ports:
       - 9000:9000
     networks:
