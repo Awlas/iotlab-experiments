@@ -3,17 +3,17 @@
 ![](https://img.shields.io/badge/docker-20.10.21-green)
 ![](https://img.shields.io/badge/docker_compose-1.25.0-green)
 
-This project permit to control openwsn experiments on [IoT-LAB](https://www.iot-lab.info/) using the *iotlab-experiments* docker image where are set all the dependencies and few scripts to lauch the experiments.
+This project lets you conduct openwsn experiments on [IoT-LAB](https://www.iot-lab.info/), using the *iotlab-experiments* docker image containing all the dependencies and a few scripts to lauch the experiments.
 
 ## Prerequisites
 
 To use this tool you need to install docker and docker-compose: [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/).
 
-All the tests have been made on 20.10.21 docker's version and 1.25.0 docker-compose's version.
+All the tests have been made on docker's 20.10.21 version and docker-compose's 1.25.0 version.
 
 ## Dependencies
 
-This *iotlab-experiments* docker image set all the dependencies need to this project:
+This *iotlab-experiments* docker image already contains all the dependencies needed for this project:
 
 - [https://hub.docker.com/r/awlas/iotlab-experiments](https://hub.docker.com/r/awlas/iotlab-experiments) [https://github.com/iot-lab/ssh-cli-tools](https://github.com/iot-lab/ssh-cli-tools): all the tools to provide a basic set of operations for managing IoT-LAB experiments from the command-line.
 - [https://github.com/openwsn-berkeley/openwsn-fw](https://github.com/openwsn-berkeley/openwsn-fw): the firmware (in C)
@@ -30,10 +30,10 @@ docker-compose up
 ```
 
 This command create and run two docker's containers:
-- *IOTLab_OpenV_Server_Exp*, to lauch the experiments and run an [OpenVisualizer Server](https://github.com/openwsn-berkeley/openvisualizer) that interact with the network deployed on Iot-LAB or simulate on emulated motes. This container will use [openwsn-iotlab](https://github.com/ftheoleyre/openwsn-iotlab.git) python scripts to do that
+- *IOTLab_OpenV_Server_Exp*, to lauch the experiments and run an [OpenVisualizer Server](https://github.com/openwsn-berkeley/openvisualizer) that interacts with the network deployed on Iot-LAB or simulated on emulated motes, all done with [openwsn-iotlab](https://github.com/ftheoleyre/openwsn-iotlab.git) Python scripts.
 - *IOTLab_OpenV_Client_Exp*, to run the web interface client using [OpenVisualizer Client](https://github.com/openwsn-berkeley/openvisualizer)
 
-You can stop the entire application (namely the both containers) at any time by hitting **Ctr+C**. You can also stop each containers by using:
+You can stop the entire application (namely both containers) at any time by hitting **Ctrl+C**. You can also stop each container by using:
 ```
 docker stop IOTLab_OpenV_Server_Exp
 docker stop IOTLab_OpenV_Client_Exp
@@ -63,25 +63,25 @@ Here are the different variables that exist:
 |`MIN_ID`|discard smaller node's ids|\<number\>|70|
 |`MAX_SPACE_ID`|max separation with the closest id|\<number\>|9|
 |`SIMULATION`|simulation mode|[True,False]|False|
-|`COMPIL`|compile the fireware|[True,False]|True|
+|`COMPIL`|compile the firmware|[True,False]|True|
 |`EXP_RESUME`|restart an already running experiment (if one exists)|[True,False]|True|
-|`EXP_RESUME_VERIF`|verification that the motes are those specified (in the running exp)|[True,False]|False|
+|`EXP_RESUME_VERIF`|check that the motes are those specified (in the running exp)|[True,False]|False|
 
 To change the value of an environment variable, add `<ENVIRONMENT_VARIABLE>=<value>` to the command when you run the application as follow:
 ```
 <ENVIRONMENT_VARIABLE>=<value> ... docker-compose up
 ```
-Note that you can assign value to multiple environment variable on the same command.
+Note that you can assign values to multiple environment variables at once in a single command.
 
-If you want to lauch experiments multiple time you can directly change the default value on the *docker-compose.yml*. For each environment variable the following line is set:
+If you want to launch experiments repeatedly you can directly change the default value in the *docker-compose.yml* file. For each environment variable, the following line is set:
 ```
 <ENVIRONMENT_VARIABLE>=${<ENVIRONMENT_VARIABLE>:-<default_value>}
 ```
-You can simply open the file, change the default value, save the file and the changes would be applied when you rerun `docker-compose up`.
+Simply open the file, change the default value, save the file and the changes will be applied when you rerun `docker-compose up`.
 
 ## Authentication
 
-To run an experiment, IOTLab_OpenV_Server_Exp container need to be authenticate with an account. After having running the previous command to start the containers, the script will be running and the following warning will be print to you on the execution :
+To run an experiment, the IOTLab_OpenV_Server_Exp container need to be authenticate with an account. After running the previous command to start the containers, the script will be running and the following warning will be displayed on the execution :
 
 > Waiting for authentication with "iotlab-auth -u \<USER\>" on an other terminal...
 
@@ -112,5 +112,5 @@ This command will run an interactive terminal thanks to the **-it** option with 
 
 These actions to authenticate your self are required when:
 - it's the first time you run `docker-compose up`
-- you change the default value/value of an environment variable
-- the previous running changed the value of an environment variable
+- you change the default value/the value of an environment variable
+- the previous execution changed the value of an environment variable
