@@ -114,3 +114,8 @@ These actions to authenticate your self are required when:
 - it's the first time you run `docker-compose up`
 - you change the default value/the value of an environment variable
 - the previous execution changed the value of an environment variable
+
+## Results
+
+At the end of the exexcution, a folder named `results` is created. There, you can find all the logs of the experiments that were running.
+In practice, for each execution of docker-compose a volume between this directory and the `/root/results directory` on the `IOTLab_OpenV_Server_Exp` container is created.
