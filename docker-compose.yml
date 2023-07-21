@@ -2,7 +2,7 @@ version: '3'
 
 services:
   openv-server:
-    image: awlas/iotlab-experiments 
+    image: awlas/iotlab-experiments:latest
     container_name: IOTLab_OpenV_Server_Exp
     privileged: true
     build: 
@@ -28,10 +28,12 @@ services:
       - openv-network
     stdin_open: true
     tty: true
+    volumes:
+      - ./results:/root/results
     command: python3 run_experiments.py
 
   openv-client:
-    image: awlas/iotlab-experiments
+    image: awlas/iotlab-experiments:latest
     container_name: IOTLab_OpenV_Client_Exp
     privileged: true
     build:
